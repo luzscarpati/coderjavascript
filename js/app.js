@@ -57,20 +57,18 @@ function registrarUsuario() {
 
       // Validación de campos obligatorios
       if (!nombre || !apellido || !genero || !edad || !email) {
-            alert("Tenés completar todos los campos");
+            alert("Debes completar todos los campos");
             return;
-      }
-      // Validación de edad
-      if (isNaN(edad) || edad <= 0) {
+          } else if (isNaN(edad) || edad <= 0) {
             alert("La edad ingresada no es válida.");
             return;
-      }
-      // Validación de email
-      const emailRegex = /^\S+@\S+\.\S+$/;
-      if (!emailRegex.test(email)) {
-            alert("El correo electrónico ingresado no es válido.");
-            return;
-      }
+          } else {
+            const emailRegex = /^\S+@\S+\.\S+$/;
+            if (!emailRegex.test(email)) {
+              alert("El correo electrónico ingresado no es válido.");
+              return;
+            }
+          }
 
       const usuario = {
             id: usuarios.length + 1, // Identificador único
