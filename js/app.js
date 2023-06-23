@@ -109,11 +109,12 @@ class Turnos {
 }
 
 function registrarUsuario() {
-  let nombre = prompt("Ingresa tu nombre:");
-  let apellido = prompt("Ingresa tu apellido:");
-  let genero = prompt("Ingresa tu género (Masculino/Femenino/Otro):");
-  let edad = parseInt(prompt("Ingresa tu edad:"));
-  let email = prompt("Ingresar tu correo electrónico:");
+  
+  let nombre = document.getElementById("first-name").value;
+  let apellido = document.getElementById("last-name").value;
+  let email = document.getElementById("email").value;
+  let genero = document.querySelector('input[name="genero"]:checked').value;
+  let edad = parseInt(document.getElementById("edad").value);
 
   // Validación de campos obligatorios y otros chequeos...
   if (!nombre || !apellido || !genero || !edad || !email) {
@@ -137,6 +138,22 @@ function registrarUsuario() {
 
   console.log(usuario);
 }
+document.getElementById("form_turnos").addEventListener("submit", function (event) {
+  event.preventDefault();
+  registrarUsuario();
+  console.log("Cantidad de usuarios registrados: " + usuarios.length)
+
+  function edadPromedioUsuarios() {
+    let sumaEdades = 0;
+    for (let i = 0; i < usuarios.length; i++) {
+      sumaEdades += usuarios[i].edad;
+    }
+    let promedio = sumaEdades / usuarios.length;
+    return promedio;
+  }
+  let promedioEdades = edadPromedioUsuarios();
+  console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
+});
 
 function sacarTurnos() {
   const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
@@ -167,21 +184,4 @@ function sacarTurnos() {
   alert("Turno otorgado exitosamente");
   console.log(turno);
 }
-
-function edadPromedioUsuarios() {
-      let sumaEdades = 0;
-      for (let i = 0; i < usuarios.length; i++) {
-        sumaEdades += usuarios[i].edad;
-      }
-      let promedio = sumaEdades / usuarios.length;
-      return promedio;
-    }
-    
-let promedioEdades = edadPromedioUsuarios();
-
-registrarUsuario();
 sacarTurnos();
-edadPromedioUsuarios();
-console.log("Cantidad de usuarios registrados: " + usuarios.length);
-console.log("La edad promedio de los usuarios es: " + promedioEdades);
-

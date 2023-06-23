@@ -68,13 +68,18 @@
         <hr>
       </section>
       <section id="turnos">
-        <form id="form" action="">
+        <form id="form_turnos" action="">
         <fieldset>
-          <label for="first-name">Ingresa tu nombre: <input id="first-name" name="first-name" type="text" required /></label>
-          <label for="last-name">Ingresa tu apellido: <input id="last-name" name="last-name" type="text" required /></label>
-          <label for="email">Ingresa tu mail: <input id="email" name="email" type="email" required placeholder="Ingresa tu mail"/></label>
+          <label for="first-name">Ingresa tu nombre: <input id="first-name" name="first-name" type="text" required autocomplete="name"/></label>
+          <label for="last-name">Ingresa tu apellido: <input id="last-name" name="last-name" type="text" required autocomplete="name"/></label>
+          <label for="email">Ingresa tu mail: <input id="email" name="email" type="email" required placeholder="Ingresa tu mail" autocomplete="email"/></label>
+          <label for="edad">Ingresa tu edad: <input id="edad" name="edad" type="number" required /></label>
+          <label>Género:</label>
+          <label for="genero-masculino">Masculino <input id="genero-masculino" name="genero" type="radio" class="inline" value="Masculino" required /></label>
+          <label for="genero-femenino">Femenino <input id="genero-femenino" name="genero" type="radio" class="inline" value="Femenino" required /></label>
+          <label for="genero-otro">Otro <input id="genero-otro" name="genero" type="radio" class="inline" value="Otro" required /></label>
         </fieldset>
-  <input id="submit" type="submit" value="Submit"/>
+  <input id="submit_turnos" type="submit" value="Submit"/>
         </form>
       </section>
      </main>
