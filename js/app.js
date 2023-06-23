@@ -84,7 +84,8 @@ const turnosOtorgados = [
 let   especialidades = {
       ginecologia: ["Dra. Pérez", "Dra. Gómez", "Dr. Martínez"],
       obstetricia: ["Dr. Sánchez", "Dra. Rodríguez", "Dr. López"],
-      fertilizacion: ["Dra. González", "Dr. Fernández", "Dra. Ramírez"]
+      fertilizacion: ["Dra. González", "Dr. Fernández", "Dra. Ramírez"],
+      iveile: ["Dr. Guida", "Dra Varón", "Dra Iraola"]
 };
 
 class Usuario {
@@ -138,7 +139,7 @@ function registrarUsuario() {
 
   console.log(usuario);
 }
-document.getElementById("form_turnos").addEventListener("submit", function (event) {
+document.getElementById("form_registro").addEventListener("submit", function (event) {
   event.preventDefault();
   registrarUsuario();
   console.log("Cantidad de usuarios registrados: " + usuarios.length)

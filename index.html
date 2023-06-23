@@ -14,7 +14,7 @@
           <ul class="nav-list">
             <li><a href="#servicios" class="nav-link">Servicios</a></li>
             <li><a href="#especialidades" class="nav-link">Especialidades</a></li>
-            <li><a href="#turnos" class="nav-link">Solicitar turno</a></li>
+            <li><a href="#registro" class="nav-link">Solicitar turno</a></li>
           </ul>
         </nav>
       </header>
@@ -48,6 +48,24 @@
           </li>
         </li>
         <hr>
+        <section id="registro">
+          <form id="form_registro" action="">
+          <fieldset>
+            <label for="first-name">Ingresa tu nombre: <input id="first-name" name="first-name" type="text" required autocomplete="name"/></label>
+            <label for="last-name">Ingresa tu apellido: <input id="last-name" name="last-name" type="text" required autocomplete="name"/></label>
+            <label for="email">Ingresa tu mail: <input id="email" name="email" type="email" required placeholder="Ingresa tu mail" autocomplete="email"/></label>
+            <label for="edad">Ingresa tu edad: <input id="edad" name="edad" type="number" required /></label>
+          </fieldset>
+          <fieldset>
+            <label>Género:</label>
+            <label for="genero-masculino">Masculino <input id="genero-masculino" name="genero" type="radio" class="inline" value="Masculino" required /></label>
+            <label for="genero-femenino">Femenino <input id="genero-femenino" name="genero" type="radio" class="inline" value="Femenino" required /></label>
+            <label for="genero-otro">Otro <input id="genero-otro" name="genero" type="radio" class="inline" value="Otro" required /></label>
+          </fieldset>
+    <input id="submit_registro" type="submit" value="Submit"/>
+          </form>
+        </section>
+        <hr>
       </section>
       <section id="especialidades">
         <h2>Especialidades</h2>
@@ -55,34 +73,44 @@
         <div class="product">
           <h4>Ginecología</h4>
           <img src="./img/ginecología.jpeg" alt="Profesional de la salud explica el aparato reproductor femenino" class="img-product"/>
+          <label for="profesional-perez">Dra. Pérez <input id="profesional-perez" name="profesional-ginecologia" type="radio" class="inline" value="Dra. Pérez" required /></label>
+          <label for="profesional-gomez">Dra. Gómez <input id="profesional-gomez" name="profesional-ginecologia" type="radio" class="inline" value="Dra. Gómez" required /></label>
+          <label for="profesional-martinez">Dr. Martínez <input id="profesional-martinez" name="profesional-ginecologia" type="radio" class="inline" value="Dr. Martínez" required /></label>
         </div>
         <div class="product">
         <h4>Obstetricia</h4>
         <img src="./img/obstetricia.jpg" alt="Persona embarazada siendo atendida" class="img-product"/>
-        </div>
+        <ul>
+          <li><h5>Dr. Sánchez</h5></li>
+          <li><h5>Dra. Rodríguez</h5></li>
+          <li><h5>Dr. López</h5></li>
+        </ul>
+      </div>
         <div class="product">
           <h4>Fertilización Asistida</h4>
           <img src="./img/fertilizacion.jpg" alt="Óvulo siendo fertilizado" class="img-product"/>
+          <ul>
+            <li><h5>Dra. González</h5></li>
+            <li><h5>Dr. Fernández</h5></li>
+            <li><h5>Dra. Ramírez</h5></li>  
+          </ul>
+        </div>
+        <div class="product">
+          <h4>IVE - ILE</h4>
+          <img src="./img/ive.jpg" alt="Médico tomando la mano de una paciente" class="img-product"/>
+          <ul>
+          <li><h5>Dr. Guida</h5></li>
+          <li><h5>Dra Varón</h5></li>
+          <li><h5>Dra Iraola</h5></li>
+          </ul>        
         </div>
         </div>
         <hr>
       </section>
-      <section id="turnos">
-        <form id="form_turnos" action="">
-        <fieldset>
-          <label for="first-name">Ingresa tu nombre: <input id="first-name" name="first-name" type="text" required autocomplete="name"/></label>
-          <label for="last-name">Ingresa tu apellido: <input id="last-name" name="last-name" type="text" required autocomplete="name"/></label>
-          <label for="email">Ingresa tu mail: <input id="email" name="email" type="email" required placeholder="Ingresa tu mail" autocomplete="email"/></label>
-          <label for="edad">Ingresa tu edad: <input id="edad" name="edad" type="number" required /></label>
-          <label>Género:</label>
-          <label for="genero-masculino">Masculino <input id="genero-masculino" name="genero" type="radio" class="inline" value="Masculino" required /></label>
-          <label for="genero-femenino">Femenino <input id="genero-femenino" name="genero" type="radio" class="inline" value="Femenino" required /></label>
-          <label for="genero-otro">Otro <input id="genero-otro" name="genero" type="radio" class="inline" value="Otro" required /></label>
-        </fieldset>
-  <input id="submit_turnos" type="submit" value="Submit"/>
-        </form>
-      </section>
      </main>
+     <footer>
+
+     </footer>
     
  <script src="./js/app.js"></script>
 </body>
