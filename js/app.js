@@ -135,7 +135,7 @@ function registrarUsuario() {
   const usuario = new Usuario(nombre, apellido, genero, edad, email);
 
   usuarios.push(usuario);
-  alert("Registro exitoso");
+  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.id}`);
 
   console.log(usuario);
 }
@@ -143,6 +143,8 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
   event.preventDefault();
   registrarUsuario();
   console.log("Cantidad de usuarios registrados: " + usuarios.length)
+
+document.getElementById("form_registro").reset();
 
   function edadPromedioUsuarios() {
     let sumaEdades = 0;
@@ -157,6 +159,31 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
 });
 
 function sacarTurnos() {
+  const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
+  const profesionalElement = document.querySelector('input[name="profesional-ginecologia"]:checked, input[name="profesional-obstetricia"]:checked, input[name="profesional-fertilizacion"]:checked, input[name="profesional-iveile"]:checked');
+
+  if (!profesionalElement) {
+    alert("Debes seleccionar un profesional.");
+    return;
+  }
+
+  const especialidad = profesionalElement.getAttribute("name").split("-")[1];
+  const profesional = profesionalElement.value;
+  const fecha = prompt("Ingresa la fecha (YYYY-MM-DD):");
+  const horario = prompt("Ingresa el horario (HH:MM):");
+
+  const turno = new Turnos(usuarioId, especialidad, profesional, fecha, horario);
+  turnosOtorgados.push(turno);
+  alert("Turno otorgado exitosamente");
+  console.log(turno);
+}
+const buttons = document.getElementsByClassName("sacar-turno-btn");
+
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", sacarTurnos);
+}
+
+/*function sacarTurnos() {
   const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
   const especialidad = prompt("Selecciona la especialidad (ginecologia, obstetricia, fertilizacion):");
   const profesionales = especialidades[especialidad];
@@ -185,4 +212,4 @@ function sacarTurnos() {
   alert("Turno otorgado exitosamente");
   console.log(turno);
 }
-sacarTurnos();
+sacarTurnos();*/
