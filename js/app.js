@@ -160,6 +160,13 @@ document.getElementById("form_registro").reset();
 
 function sacarTurnos() {
   const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
+  const usuarioRegistrado = usuarios.find(user => user.id === usuarioId);
+
+  if (!usuarioRegistrado) {
+    alert("Debes registrarte previamente.");
+    return;
+  }
+
   const profesionalElement = document.querySelector('input[name="profesional-ginecologia"]:checked, input[name="profesional-obstetricia"]:checked, input[name="profesional-fertilizacion"]:checked, input[name="profesional-iveile"]:checked');
 
   if (!profesionalElement) {
@@ -169,47 +176,25 @@ function sacarTurnos() {
 
   const especialidad = profesionalElement.getAttribute("name").split("-")[1];
   const profesional = profesionalElement.value;
-  const fecha = prompt("Ingresa la fecha (YYYY-MM-DD):");
-  const horario = prompt("Ingresa el horario (HH:MM):");
+  
+  // Solicitar fecha y hora al usuario
+  let fecha = prompt("Ingresa la fecha (YYYY-MM-DD):");
+  let horario = prompt("Ingresa el horario (HH:MM):");
+
+  // Validar que se ingresen fecha y hora
+  if (!fecha || !horario) {
+    alert("Debes ingresar fecha y hora.");
+    return;
+  }
 
   const turno = new Turnos(usuarioId, especialidad, profesional, fecha, horario);
   turnosOtorgados.push(turno);
   alert("Turno otorgado exitosamente");
   console.log(turno);
 }
+
 const buttons = document.getElementsByClassName("sacar-turno-btn");
 
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", sacarTurnos);
 }
-
-/*function sacarTurnos() {
-  const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
-  const especialidad = prompt("Selecciona la especialidad (ginecologia, obstetricia, fertilizacion):");
-  const profesionales = especialidades[especialidad];
-
-  if (!profesionales) {
-    alert("La especialidad seleccionada no es válida.");
-    return;
-  }
-
-  const profesional = prompt(`Selecciona un profesional de ${especialidad}: ${profesionales.join(", ")}`);
-  const fecha = prompt("Ingresa la fecha (YYYY-MM-DD):");
-  const horario = prompt("Ingresa el horario (HH:MM):");
-
-  if (!usuarioId || isNaN(usuarioId) || usuarioId <= 0) {
-    alert("El ID de usuario ingresado no es válido.");
-    return;
-  }
-
-  if (!especialidad || !profesional || !fecha || !horario) {
-    alert("Debes completar todos los campos");
-    return;
-  }
-
-  const turno = new Turnos(usuarioId, especialidad, profesional, fecha, horario);
-  turnosOtorgados.push(turno);
-  alert("Turno otorgado exitosamente");
-  console.log(turno);
-}
-sacarTurnos();*/
