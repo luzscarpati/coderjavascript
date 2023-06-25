@@ -191,6 +191,9 @@ function sacarTurnos() {
   turnosOtorgados.push(turno);
   alert("Turno otorgado exitosamente");
   console.log(turno);
+
+  const formulario = document.querySelector("#form_turnos");
+  formulario.reset();
 }
 
 const buttons = document.getElementsByClassName("sacar-turno-btn");
