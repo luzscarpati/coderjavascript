@@ -1,47 +1,24 @@
 console.log("Estás conectada")
-//LISTA DE USUARIOS CONECTADOS
-const usuarios = [
-  {
-    id: 1,
-    nombre: "Juan",
-    apellido: "Pérez",
-    genero: "Masculino",
-    edad: 30,
-    email: "juanperez@example.com"
-  },
-  {
-    id: 2,
-    nombre: "María",
-    apellido: "Gómez",
-    genero: "Femenino",
-    edad: 25,
-    email: "mariagomez@example.com"
-  },
-  {
-    id: 3,
-    nombre: "Pedro",
-    apellido: "López",
-    genero: "Otro",
-    edad: 40,
-    email: "pedrolopez@example.com"
-  },
-  {
-    id: 4,
-    nombre: "Ana",
-    apellido: "Rodríguez",
-    genero: "Femenino",
-    edad: 35,
-    email: "anarodriguez@example.com"
-  },
-  {
-    id: 5,
-    nombre: "Carlos",
-    apellido: "García",
-    genero: "Masculino",
-    edad: 28,
-    email: "carlosgarcia@example.com"
+//Función constructora de usuarios registrados
+class Usuario {
+  constructor(nombre, apellido, genero, edad, email) {
+    this.id = apellido + nombre;
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.genero = genero;
+    this.edad = edad;
+    this.email = email;
   }
+};
+//LISTA DE USUARIOS REGISTRADOS
+const usuarios = [
+  new Usuario('Lucía', 'Moreno', 'Femenino', 30, 'lucia.moreno@example.com'),
+  new Usuario('Sofía', 'Rossi', 'Femenino', 25, 'sofia.rossi@example.com'),
+  new Usuario('Mateo', 'Bianchi', 'Masculino', 45, 'mateo.bianchi@example.com'),
+  new Usuario('Valentina', 'Ricci', 'Femenino', 28, 'valentina.ricci@example.com'),
+  new Usuario('Gabriel', 'Romano', 'Masculino', 35, 'gabriel.romano@example.com')
 ];
+console.log(usuarios);
 //HORARIOS DE PROFESIONALES
 const horarios = {
   mañana: [
@@ -84,9 +61,9 @@ const horarios = {
 };
 
 //TURNOS OTORGADOS
-const turnosOtorgados = [
+/*let turnosOtorgados = [
   {
-    usuarioId: 1,
+    usuarioId: usuarios[apellido],
     especialidad: "ginecologia",
     profesional: "Dra. Pérez",
     fecha: "2023-06-16",
@@ -120,7 +97,8 @@ const turnosOtorgados = [
     fecha: "2023-06-20",
     horario: "11:45"
   }
-];
+];*/
+
 //LISTA DE PROFESIONALES
 const profesionales = [
   {
@@ -197,27 +175,19 @@ const profesionales = [
   }
 ];
 
-class Usuario {
-  constructor(nombre, apellido, genero, edad, email) {
-    this.id = usuarios.length + 1;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.genero = genero;
-    this.edad = edad;
-    this.email = email;
-  }
-}
-
-class Turnos {
+/*class Turnos {
   constructor(usuarioId, especialidad, profesional, fecha, horario) {
-    this.usuarioId = usuarioId;
+    this.usuarioId = usuarios[apellido][nombre];
     this.especialidad = especialidad;
     this.profesional = profesional;
     this.fecha = fecha;
     this.horario = horario;
   }
 }
+const nuevoTurno = new Turnos ()
+console.log(nuevoTurno);*/
 
+//Función - Registro de Usuarios 
 function registrarUsuario() {
 
   let nombre = document.getElementById("first-name").value;
@@ -244,10 +214,29 @@ function registrarUsuario() {
   const usuario = new Usuario(nombre, apellido, genero, edad, email);
 
   usuarios.push(usuario);
-  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido}`);
+  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido + usuario.nombre}`);
 
   console.log(usuario);
 }
+// Evento - Llamado a Registro de Usuarios 
+document.getElementById("form_registro").addEventListener("submit", function (event) {
+  event.preventDefault();
+  registrarUsuario();
+  console.log("Cantidad de usuarios registrados: " + usuarios.length)
+
+  document.getElementById("form_registro").reset();
+
+  function edadPromedioUsuarios() {
+    let sumaEdades = 0;
+    for (let i = 0; i < usuarios.length; i++) {
+      sumaEdades += usuarios[i].edad;
+    }
+    let promedio = sumaEdades / usuarios.length;
+    return promedio;
+  }
+  let promedioEdades = edadPromedioUsuarios();
+  console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
+});
 
 //TARJETAS DE PROFESIONALES
 const productContainer = document.querySelector('#product_ginecologia');
@@ -266,7 +255,7 @@ profesionalesGinecologia.forEach(profesional => {
   const apellidoSinPrefijo = apellidoConPrefijo.replace(/^Dr\.|^Dra\./, '');
   const apellidoFormateado = quitarAcentos(apellidoSinPrefijo.toLowerCase().replace(/\s/g, ''));
 
-  const imagenSrc = `../img/${apellidoFormateado}.jpg`;
+  const imagenSrc = `./img/${apellidoFormateado}.jpg`;
 
   productDiv.innerHTML = `
     <div class='card'>
@@ -293,25 +282,7 @@ profesionalesGinecologia.forEach(profesional => {
   });
 });
 
-//REGISTRO DE USUARIOS
-document.getElementById("form_registro").addEventListener("submit", function (event) {
-  event.preventDefault();
-  registrarUsuario();
-  console.log("Cantidad de usuarios registrados: " + usuarios.length)
 
-  document.getElementById("form_registro").reset();
-
-  function edadPromedioUsuarios() {
-    let sumaEdades = 0;
-    for (let i = 0; i < usuarios.length; i++) {
-      sumaEdades += usuarios[i].edad;
-    }
-    let promedio = sumaEdades / usuarios.length;
-    return promedio;
-  }
-  let promedioEdades = edadPromedioUsuarios();
-  console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
-});
 
 /*function sacarTurnos() {
   const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
