@@ -1,48 +1,89 @@
 console.log("Estás conectada")
-
+//LISTA DE USUARIOS CONECTADOS
 const usuarios = [
-      {
-            id: 1,
-            nombre: "Juan",
-            apellido: "Pérez",
-            genero: "Masculino",
-            edad: 30,
-            email: "juanperez@example.com"
-          },
-          {
-            id: 2,
-            nombre: "María",
-            apellido: "Gómez",
-            genero: "Femenino",
-            edad: 25,
-            email: "mariagomez@example.com"
-          },
-          {
-            id: 3,
-            nombre: "Pedro",
-            apellido: "López",
-            genero: "Otro",
-            edad: 40,
-            email: "pedrolopez@example.com"
-          },
-          {
-            id: 4,
-            nombre: "Ana",
-            apellido: "Rodríguez",
-            genero: "Femenino",
-            edad: 35,
-            email: "anarodriguez@example.com"
-          },
-          {
-            id: 5,
-            nombre: "Carlos",
-            apellido: "García",
-            genero: "Masculino",
-            edad: 28,
-            email: "carlosgarcia@example.com"
-          }
+  {
+    id: 1,
+    nombre: "Juan",
+    apellido: "Pérez",
+    genero: "Masculino",
+    edad: 30,
+    email: "juanperez@example.com"
+  },
+  {
+    id: 2,
+    nombre: "María",
+    apellido: "Gómez",
+    genero: "Femenino",
+    edad: 25,
+    email: "mariagomez@example.com"
+  },
+  {
+    id: 3,
+    nombre: "Pedro",
+    apellido: "López",
+    genero: "Otro",
+    edad: 40,
+    email: "pedrolopez@example.com"
+  },
+  {
+    id: 4,
+    nombre: "Ana",
+    apellido: "Rodríguez",
+    genero: "Femenino",
+    edad: 35,
+    email: "anarodriguez@example.com"
+  },
+  {
+    id: 5,
+    nombre: "Carlos",
+    apellido: "García",
+    genero: "Masculino",
+    edad: 28,
+    email: "carlosgarcia@example.com"
+  }
 ];
+//HORARIOS DE PROFESIONALES
+const horarios = {
+  mañana: [
+    "07:00",
+    "07:30",
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00"
+  ],
+  tarde: [
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30"
+  ],
+  vespertino: [
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "21:30",
+    "22:00"
+  ]
+};
 
+//TURNOS OTORGADOS
 const turnosOtorgados = [
   {
     usuarioId: 1,
@@ -80,13 +121,81 @@ const turnosOtorgados = [
     horario: "11:45"
   }
 ];
-
-let   especialidades = {
-      ginecologia: ["Dra. Pérez", "Dra. Gómez", "Dr. Martínez"],
-      obstetricia: ["Dr. Sánchez", "Dra. Rodríguez", "Dr. López"],
-      fertilizacion: ["Dra. González", "Dr. Fernández", "Dra. Ramírez"],
-      iveile: ["Dr. Guida", "Dra Varón", "Dra Iraola"]
-};
+//LISTA DE PROFESIONALES
+const profesionales = [
+  {
+    apellido: "Dra. Pérez",
+    edad: 35,
+    especialidad: "ginecologia",
+    franjaHoraria: "mañana"
+  },
+  {
+    apellido: "Dra. Gómez",
+    edad: 40,
+    especialidad: "ginecologia",
+    franjaHoraria: "tarde"
+  },
+  {
+    apellido: "Dra. Martínez",
+    edad: 38,
+    especialidad: "ginecologia",
+    franjaHoraria: "vespertino"
+  },
+  {
+    apellido: "Dr. Sánchez",
+    edad: 42,
+    especialidad: "obstetricia",
+    franjaHoraria: "mañana"
+  },
+  {
+    apellido: "Dra. Rodríguez",
+    edad: 37,
+    especialidad: "obstetricia",
+    franjaHoraria: "tarde"
+  },
+  {
+    apellido: "Dra. López",
+    edad: 39,
+    especialidad: "obstetricia",
+    franjaHoraria: "vespertino"
+  },
+  {
+    apellido: "Dra. González",
+    edad: 36,
+    especialidad: "fertilizacion",
+    franjaHoraria: "mañana"
+  },
+  {
+    apellido: "Dr. Fernández",
+    edad: 41,
+    especialidad: "fertilizacion",
+    franjaHoraria: "tarde"
+  },
+  {
+    apellido: "Dra. Ramírez",
+    edad: 34,
+    especialidad: "fertilizacion",
+    franjaHoraria: "vespertino"
+  },
+  {
+    apellido: "Dr. Guida",
+    edad: 43,
+    especialidad: "iveile",
+    franjaHoraria: "mañana"
+  },
+  {
+    apellido: "Dra. Varón",
+    edad: 33,
+    especialidad: "iveile",
+    franjaHoraria: "tarde"
+  },
+  {
+    apellido: "Dra. Iraola",
+    edad: 39,
+    especialidad: "iveile",
+    franjaHoraria: "vespertino"
+  }
+];
 
 class Usuario {
   constructor(nombre, apellido, genero, edad, email) {
@@ -110,7 +219,7 @@ class Turnos {
 }
 
 function registrarUsuario() {
-  
+
   let nombre = document.getElementById("first-name").value;
   let apellido = document.getElementById("last-name").value;
   let email = document.getElementById("email").value;
@@ -135,16 +244,62 @@ function registrarUsuario() {
   const usuario = new Usuario(nombre, apellido, genero, edad, email);
 
   usuarios.push(usuario);
-  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.id}`);
+  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido}`);
 
   console.log(usuario);
 }
+
+//TARJETAS DE PROFESIONALES
+const productContainer = document.querySelector('#product_ginecologia');
+const profesionalesGinecologia = profesionales.filter(profesional => profesional.especialidad === "ginecologia");
+
+const quitarAcentos = (cadena) => {
+  return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
+profesionalesGinecologia.forEach(profesional => {
+  const productDiv = document.createElement('div');
+  productDiv.classList.add('producto');
+  productDiv.style.backgroundColor = '#FFFFFF';
+
+  const apellidoConPrefijo = profesional.apellido;
+  const apellidoSinPrefijo = apellidoConPrefijo.replace(/^Dr\.|^Dra\./, '');
+  const apellidoFormateado = quitarAcentos(apellidoSinPrefijo.toLowerCase().replace(/\s/g, ''));
+
+  const imagenSrc = `../img/${apellidoFormateado}.jpg`;
+
+  productDiv.innerHTML = `
+    <div class='card'>
+      <img src="${imagenSrc}" alt="${apellidoConPrefijo}" class="img-product">
+      <h5>${apellidoConPrefijo}</h5>
+      <div class='text-card'>
+        <p>Edad: ${profesional.edad}</p>
+        <p>Franja Horaria: ${profesional.franjaHoraria}</p>
+      </div>
+      <label name="fecha">Elija una fecha
+      <input type="date" id="fecha" name="fecha" class="input-fecha"/>
+      <button id="sacarTurnoBtn" class="sacar-turno-btn">Sacar Turno</button>
+      </label>
+    </div>
+  `;
+
+  productContainer.appendChild(productDiv);
+
+  const sacarTurnoBtn = productDiv.querySelector('#sacarTurnoBtn');
+  sacarTurnoBtn.addEventListener('click', () => {
+    const fechaSeleccionada = productDiv.querySelector('#fecha').value;
+    // Aquí puedes hacer algo con la fecha seleccionada, como enviarla a un servidor, procesarla, etc.
+    console.log('Fecha seleccionada:', fechaSeleccionada);
+  });
+});
+
+//REGISTRO DE USUARIOS
 document.getElementById("form_registro").addEventListener("submit", function (event) {
   event.preventDefault();
   registrarUsuario();
   console.log("Cantidad de usuarios registrados: " + usuarios.length)
 
-document.getElementById("form_registro").reset();
+  document.getElementById("form_registro").reset();
 
   function edadPromedioUsuarios() {
     let sumaEdades = 0;
@@ -158,7 +313,7 @@ document.getElementById("form_registro").reset();
   console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
 });
 
-function sacarTurnos() {
+/*function sacarTurnos() {
   const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
   const usuarioRegistrado = usuarios.find(user => user.id === usuarioId);
 
@@ -200,4 +355,4 @@ const buttons = document.getElementsByClassName("sacar-turno-btn");
 
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", sacarTurnos);
-}
+}*/

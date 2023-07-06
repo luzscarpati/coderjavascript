@@ -74,44 +74,60 @@ h1, h2 {
 margin-bottom: 15px;
 text-decoration: none;
 }
-.especialidades-flex {
+.especialidades-cards {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
+  gap: 1em;
   justify-content: center;
-    align-items: center;
-  gap: 10px;
+  align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 20px;
 }
-.product > p {
-  padding: 5px;
-}
-.product > h4 {
-  font-size: 1rem;
-  font-weight: lighter;
-  margin: 0.5em;
-  margin-bottom: 0px;
 
+h4 {
+  background-color: #4d4e53;
+  color: white;
+  padding: .3em;
+  height: 2em;
+  width: 80vw;
 }
-.product > label {
-  padding-left: 1em;
-  padding-right: 1em;
+.card > h5 {
+  font-size: 1rem;
+  font-weight: 800;
+  padding-bottom: 8px;
 }
-.product {
+
+.card {
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 350px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 250px;
+  height: 400px;
   background-color:rgb(40, 39, 39);
   overflow: hidden;
   color: white;
-
+  border-radius: 10px;
+  row-gap: 5px;
 }
-.img-product {
-  width:100%;
+.card > .img-product {
+  margin-top: 1em;
+  width:90%;
   height: 45%;
-  background-color:white;
-  border: 10px solid rgb(40, 39, 39)
+  border-radius: 10px;
+}
+.text-card > p {
+  margin-bottom: 5px;
+  display: flex;
+}
+.input-fecha {
+  background-color: white;
+  color: rgb(40, 39, 39);
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  text-align: left;
 }
 #form_registro {
   width: 60vw;
@@ -157,7 +173,7 @@ input[type="submit"] {
 }
 .sacar-turno-btn {
   display: block;
-  width: 60%;
+  width: 100px;
   margin: 0 auto;
   height: 2em;
   font-size: 1rem;
@@ -175,11 +191,15 @@ input[type="submit"] {
 footer {
   height: 100px;
 }
-h5 {
-  padding-left: 1em;
-  padding-top: 1em;
-  font-size: 0.8rem;
+
+
+.datepicker {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  padding-right: 1.5em; /* Espacio para el ícono */
 }
+
 @media only screen and (min-width: 550px) {
   #video {width: 500px;
   margin-bottom: 15px;
