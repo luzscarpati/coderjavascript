@@ -159,7 +159,14 @@ input {
   border: 1px solid #0a0a23;
   color: #ffffff;
 }
-
+input[type="datetime-local"] {
+  color: red;
+  pointer-events: none;
+  background-color: #4d4e53;
+}
+.label-fehca-hora {
+width: 80%;
+}
 input[type="submit"] {
   display: block;
   width: 60%;
@@ -190,14 +197,6 @@ input[type="submit"] {
 }
 footer {
   height: 100px;
-}
-
-
-.datepicker {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  padding-right: 1.5em; /* Espacio para el ícono */
 }
 
 @media only screen and (min-width: 550px) {

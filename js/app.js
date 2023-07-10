@@ -10,6 +10,39 @@ class Usuario {
     this.email = email;
   }
 };
+//Función constructora de turnos disponibles
+class TurnoDisponible {
+  constructor (fecha, hora, especialidad, profesional) {
+    this.fecha = fecha;
+    this.hora = hora,
+    this.especialidad = especialidad,
+    this.profesional = profesional
+  }
+};
+//LISTA DE TURNOS DISPONIBLES
+const turnosDisponibles = [
+  new TurnoDisponible("3 de Julio", "08:00", "obstetricia", "Dra. Sánchez"),
+  new TurnoDisponible("4 de Julio", "09:30", "ginecologia", "Dr. Rodríguez"),
+  new TurnoDisponible("5 de Julio", "10:30", "ive/ile", "Dra. Martínez"),
+  new TurnoDisponible("6 de Julio", "08:30", "obstetricia", "Dra. González"),
+  new TurnoDisponible("7 de Julio", "10:00", "ginecologia", "Dr. Fernández"),
+  new TurnoDisponible("8 de Julio", "09:30", "ive/ile", "Dra. Ramírez"),
+  new TurnoDisponible("9 de Julio", "10:30", "obstetricia", "Dr. López"),
+  new TurnoDisponible("10 de Julio", "11:00", "ginecologia", "Dra. Rodríguez"),
+  new TurnoDisponible("11 de Julio", "08:30", "ive/ile", "Dr. Sánchez"),
+  new TurnoDisponible("12 de Julio", "10:30", "ginecologia", "Dr. Fernández"),
+  new TurnoDisponible("13 de Julio", "09:30", "ginecologia", "Dra. Martínez"),
+  new TurnoDisponible("14 de Julio", "08:30", "ive/ile", "Dra. González"),
+  new TurnoDisponible("15 de Julio", "10:00", "ginecologia", "Dra. Ramírez"),
+  new TurnoDisponible("16 de Julio", "08:30", "ive/ile", "Dr. López"),
+  new TurnoDisponible("17 de Julio", "10:30", "ginecologia", "Dra. Rodríguez"),
+  new TurnoDisponible("18 de Julio", "09:30", "ive/ile", "Dra. Sánchez"),
+  new TurnoDisponible("19 de Julio", "11:00", "obstetricia", "Dr. Fernández"),
+  new TurnoDisponible("20 de Julio", "08:30", "ive/ile", "Dra. Martínez"),
+  new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dr. González"),
+  new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
+];
+
 //LISTA DE USUARIOS REGISTRADOS
 const usuarios = [
   new Usuario('Lucía', 'Moreno', 'Femenino', 30, 'lucia.moreno@example.com'),
@@ -18,176 +51,7 @@ const usuarios = [
   new Usuario('Valentina', 'Ricci', 'Femenino', 28, 'valentina.ricci@example.com'),
   new Usuario('Gabriel', 'Romano', 'Masculino', 35, 'gabriel.romano@example.com')
 ];
-console.log(usuarios);
-//HORARIOS DE PROFESIONALES
-const horarios = {
-  mañana: [
-    "07:00",
-    "07:30",
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00"
-  ],
-  tarde: [
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30"
-  ],
-  vespertino: [
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-    "20:30",
-    "21:00",
-    "21:30",
-    "22:00"
-  ]
-};
 
-//TURNOS OTORGADOS
-/*let turnosOtorgados = [
-  {
-    usuarioId: usuarios[apellido],
-    especialidad: "ginecologia",
-    profesional: "Dra. Pérez",
-    fecha: "2023-06-16",
-    horario: "09:00"
-  },
-  {
-    usuarioId: 2,
-    especialidad: "obstetricia",
-    profesional: "Dr. Sánchez",
-    fecha: "2023-06-17",
-    horario: "10:30"
-  },
-  {
-    usuarioId: 3,
-    especialidad: "fertilizacion",
-    profesional: "Dra. González",
-    fecha: "2023-06-18",
-    horario: "12:15"
-  },
-  {
-    usuarioId: 4,
-    especialidad: "ginecologia",
-    profesional: "Dra. Gómez",
-    fecha: "2023-06-19",
-    horario: "14:00"
-  },
-  {
-    usuarioId: 5,
-    especialidad: "obstetricia",
-    profesional: "Dra. Rodríguez",
-    fecha: "2023-06-20",
-    horario: "11:45"
-  }
-];*/
-
-//LISTA DE PROFESIONALES
-const profesionales = [
-  {
-    apellido: "Dra. Pérez",
-    edad: 35,
-    especialidad: "ginecologia",
-    franjaHoraria: "mañana"
-  },
-  {
-    apellido: "Dra. Gómez",
-    edad: 40,
-    especialidad: "ginecologia",
-    franjaHoraria: "tarde"
-  },
-  {
-    apellido: "Dra. Martínez",
-    edad: 38,
-    especialidad: "ginecologia",
-    franjaHoraria: "vespertino"
-  },
-  {
-    apellido: "Dr. Sánchez",
-    edad: 42,
-    especialidad: "obstetricia",
-    franjaHoraria: "mañana"
-  },
-  {
-    apellido: "Dra. Rodríguez",
-    edad: 37,
-    especialidad: "obstetricia",
-    franjaHoraria: "tarde"
-  },
-  {
-    apellido: "Dra. López",
-    edad: 39,
-    especialidad: "obstetricia",
-    franjaHoraria: "vespertino"
-  },
-  {
-    apellido: "Dra. González",
-    edad: 36,
-    especialidad: "fertilizacion",
-    franjaHoraria: "mañana"
-  },
-  {
-    apellido: "Dr. Fernández",
-    edad: 41,
-    especialidad: "fertilizacion",
-    franjaHoraria: "tarde"
-  },
-  {
-    apellido: "Dra. Ramírez",
-    edad: 34,
-    especialidad: "fertilizacion",
-    franjaHoraria: "vespertino"
-  },
-  {
-    apellido: "Dr. Guida",
-    edad: 43,
-    especialidad: "iveile",
-    franjaHoraria: "mañana"
-  },
-  {
-    apellido: "Dra. Varón",
-    edad: 33,
-    especialidad: "iveile",
-    franjaHoraria: "tarde"
-  },
-  {
-    apellido: "Dra. Iraola",
-    edad: 39,
-    especialidad: "iveile",
-    franjaHoraria: "vespertino"
-  }
-];
-
-/*class Turnos {
-  constructor(usuarioId, especialidad, profesional, fecha, horario) {
-    this.usuarioId = usuarios[apellido][nombre];
-    this.especialidad = especialidad;
-    this.profesional = profesional;
-    this.fecha = fecha;
-    this.horario = horario;
-  }
-}
-const nuevoTurno = new Turnos ()
-console.log(nuevoTurno);*/
-
-//Función - Registro de Usuarios 
 function registrarUsuario() {
 
   let nombre = document.getElementById("first-name").value;
@@ -238,20 +102,21 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
   console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
 });
 
+
 //TARJETAS DE PROFESIONALES
 const productContainer = document.querySelector('#product_ginecologia');
-const profesionalesGinecologia = profesionales.filter(profesional => profesional.especialidad === "ginecologia");
+const turnosGinecologia = turnosDisponibles.filter(turno => turno.especialidad === "ginecologia");
 
 const quitarAcentos = (cadena) => {
   return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
-profesionalesGinecologia.forEach(profesional => {
+turnosGinecologia.forEach(turno => {
   const productDiv = document.createElement('div');
   productDiv.classList.add('producto');
   productDiv.style.backgroundColor = '#FFFFFF';
 
-  const apellidoConPrefijo = profesional.apellido;
+  const apellidoConPrefijo = turno.profesional;
   const apellidoSinPrefijo = apellidoConPrefijo.replace(/^Dr\.|^Dra\./, '');
   const apellidoFormateado = quitarAcentos(apellidoSinPrefijo.toLowerCase().replace(/\s/g, ''));
 
@@ -262,11 +127,9 @@ profesionalesGinecologia.forEach(profesional => {
       <img src="${imagenSrc}" alt="${apellidoConPrefijo}" class="img-product">
       <h5>${apellidoConPrefijo}</h5>
       <div class='text-card'>
-        <p>Edad: ${profesional.edad}</p>
-        <p>Franja Horaria: ${profesional.franjaHoraria}</p>
+        <p>Fecha: ${turno.fecha}</p>
+        <p>Hora: ${turno.hora}</p>
       </div>
-      <label name="fecha">Elija una fecha
-      <input type="date" id="fecha" name="fecha" class="input-fecha"/>
       <button id="sacarTurnoBtn" class="sacar-turno-btn">Sacar Turno</button>
       </label>
     </div>
@@ -274,56 +137,9 @@ profesionalesGinecologia.forEach(profesional => {
 
   productContainer.appendChild(productDiv);
 
-  const sacarTurnoBtn = productDiv.querySelector('#sacarTurnoBtn');
-  sacarTurnoBtn.addEventListener('click', () => {
-    const fechaSeleccionada = productDiv.querySelector('#fecha').value;
-    // Aquí puedes hacer algo con la fecha seleccionada, como enviarla a un servidor, procesarla, etc.
-    console.log('Fecha seleccionada:', fechaSeleccionada);
-  });
+  const addButton = productDiv.querySelector('.sacar-turno-btn');
+    addButton.addEventListener('click', () => {
+      //Agregar la logica para el carrito
+      console.log('Su turno ha sido programado');
+    });
 });
-
-
-
-/*function sacarTurnos() {
-  const usuarioId = parseInt(prompt("Ingresa tu ID de usuario:"));
-  const usuarioRegistrado = usuarios.find(user => user.id === usuarioId);
-
-  if (!usuarioRegistrado) {
-    alert("Debes registrarte previamente.");
-    return;
-  }
-
-  const profesionalElement = document.querySelector('input[name="profesional-ginecologia"]:checked, input[name="profesional-obstetricia"]:checked, input[name="profesional-fertilizacion"]:checked, input[name="profesional-iveile"]:checked');
-
-  if (!profesionalElement) {
-    alert("Debes seleccionar un profesional.");
-    return;
-  }
-
-  const especialidad = profesionalElement.getAttribute("name").split("-")[1];
-  const profesional = profesionalElement.value;
-  
-  // Solicitar fecha y hora al usuario
-  let fecha = prompt("Ingresa la fecha (YYYY-MM-DD):");
-  let horario = prompt("Ingresa el horario (HH:MM):");
-
-  // Validar que se ingresen fecha y hora
-  if (!fecha || !horario) {
-    alert("Debes ingresar fecha y hora.");
-    return;
-  }
-
-  const turno = new Turnos(usuarioId, especialidad, profesional, fecha, horario);
-  turnosOtorgados.push(turno);
-  alert("Turno otorgado exitosamente");
-  console.log(turno);
-
-  const formulario = document.querySelector("#form_turnos");
-  formulario.reset();
-}
-
-const buttons = document.getElementsByClassName("sacar-turno-btn");
-
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", sacarTurnos);
-}*/
