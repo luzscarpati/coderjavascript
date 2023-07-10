@@ -21,25 +21,25 @@ class TurnoDisponible {
 };
 //LISTA DE TURNOS DISPONIBLES
 const turnosDisponibles = [
-  new TurnoDisponible("3 de Julio", "08:00", "obstetricia", "Dra. Sánchez"),
-  new TurnoDisponible("4 de Julio", "09:30", "ginecologia", "Dr. Rodríguez"),
-  new TurnoDisponible("5 de Julio", "10:30", "ive/ile", "Dra. Martínez"),
-  new TurnoDisponible("6 de Julio", "08:30", "obstetricia", "Dra. González"),
+  new TurnoDisponible("3 de Julio", "08:00", "obstetricia", "Dr. Sánchez"),
+  new TurnoDisponible("4 de Julio", "09:30", "ginecologia", "Dra. Rodríguez"),
+  new TurnoDisponible("5 de Julio", "10:30", "ive-ile", "Dra. Martínez"),
+  new TurnoDisponible("6 de Julio", "08:30", "obstetricia", "Dr. Guida"),
   new TurnoDisponible("7 de Julio", "10:00", "ginecologia", "Dr. Fernández"),
-  new TurnoDisponible("8 de Julio", "09:30", "ive/ile", "Dra. Ramírez"),
-  new TurnoDisponible("9 de Julio", "10:30", "obstetricia", "Dr. López"),
+  new TurnoDisponible("8 de Julio", "09:30", "ive-ile", "Dra. Ramírez"),
+  new TurnoDisponible("9 de Julio", "10:30", "obstetricia", "Dra. Gómez"),
   new TurnoDisponible("10 de Julio", "11:00", "ginecologia", "Dra. Rodríguez"),
-  new TurnoDisponible("11 de Julio", "08:30", "ive/ile", "Dr. Sánchez"),
+  new TurnoDisponible("11 de Julio", "08:30", "ive-ile", "Dr. Sánchez"),
   new TurnoDisponible("12 de Julio", "10:30", "ginecologia", "Dr. Fernández"),
   new TurnoDisponible("13 de Julio", "09:30", "ginecologia", "Dra. Martínez"),
-  new TurnoDisponible("14 de Julio", "08:30", "ive/ile", "Dra. González"),
+  new TurnoDisponible("14 de Julio", "08:30", "ive-ile", "Dra. González"),
   new TurnoDisponible("15 de Julio", "10:00", "ginecologia", "Dra. Ramírez"),
-  new TurnoDisponible("16 de Julio", "08:30", "ive/ile", "Dr. López"),
+  new TurnoDisponible("16 de Julio", "08:30", "ive-ile", "Dra. Gómez"),
   new TurnoDisponible("17 de Julio", "10:30", "ginecologia", "Dra. Rodríguez"),
-  new TurnoDisponible("18 de Julio", "09:30", "ive/ile", "Dra. Sánchez"),
+  new TurnoDisponible("18 de Julio", "09:30", "ive-ile", "Dr. Sánchez"),
   new TurnoDisponible("19 de Julio", "11:00", "obstetricia", "Dr. Fernández"),
-  new TurnoDisponible("20 de Julio", "08:30", "ive/ile", "Dra. Martínez"),
-  new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dr. González"),
+  new TurnoDisponible("20 de Julio", "08:30", "ive-ile", "Dra. Martínez"),
+  new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dra. González"),
   new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
 ];
 
@@ -103,64 +103,89 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
 });
 
 //TARJETAS DE PROFESIONALES
-const productContainer = document.querySelector('#product_ginecologia');
-const turnosGinecologia = turnosDisponibles.filter(turno => turno.especialidad === "ginecologia");
 const turnosReservados = [];
-const quitarAcentos = (cadena) => {
-  return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-};
+// Función para generar las tarjetas y la lógica de reserva de turnos para una especialidad específica
+function generarTarjetasEspecialidad(especialidad) {
+  const productContainer = document.querySelector(`#product_${especialidad}`);
+  const turnosEspecialidad = turnosDisponibles.filter(turno => turno.especialidad === especialidad);
+  const quitarAcentos = (cadena) => {
+    return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+  turnosEspecialidad.forEach(turno => {
+    const productDiv = document.createElement('div');
+    productDiv.classList.add('producto');
+    productDiv.style.backgroundColor = '#FFFFFF';
 
-turnosGinecologia.forEach(turno => {
-  const productDiv = document.createElement('div');
-  productDiv.classList.add('producto');
-  productDiv.style.backgroundColor = '#FFFFFF';
+    const apellidoConPrefijo = turno.profesional;
+    const apellidoSinPrefijo = apellidoConPrefijo.replace(/^Dr\.|^Dra\./, '');
+    const apellidoFormateado = quitarAcentos(apellidoSinPrefijo.toLowerCase().replace(/\s/g, ''));
 
-  const apellidoConPrefijo = turno.profesional;
-  const apellidoSinPrefijo = apellidoConPrefijo.replace(/^Dr\.|^Dra\./, '');
-  const apellidoFormateado = quitarAcentos(apellidoSinPrefijo.toLowerCase().replace(/\s/g, ''));
+    const imagenSrc = `./img/${apellidoFormateado}.jpg`;
 
-  const imagenSrc = `./img/${apellidoFormateado}.jpg`;
-
-  productDiv.innerHTML = `
-    <div class='card'>
-      <img src="${imagenSrc}" alt="${apellidoConPrefijo}" class="img-product">
-      <h5>${apellidoConPrefijo}</h5>
-      <div class='text-card'>
-        <p>Fecha: ${turno.fecha}</p>
-        <p>Hora: ${turno.hora}</p>
+    productDiv.innerHTML = `
+      <div class='card'>
+        <img src="${imagenSrc}" alt="${apellidoConPrefijo}" class="img-product">
+        <h5>${apellidoConPrefijo}</h5>
+        <div class='text-card'>
+          <p>Fecha: ${turno.fecha}</p>
+          <p>Hora: ${turno.hora}</p>
+        </div>
+        <button class="sacar-turno-btn">Sacar Turno</button>
       </div>
-      <button class="sacar-turno-btn">Sacar Turno</button>
-    </div>
-  `;
+    `;
 
-  productContainer.appendChild(productDiv);
+    productContainer.appendChild(productDiv);
 
-  const addButton = productDiv.querySelector('.sacar-turno-btn');
-  addButton.addEventListener('click', () => {
-    const userId = prompt('Ingrese su ID de usuario:');
-  
-    if (userId) {
-      const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
-  
-      if (usuario) {
-        if (!turnosReservados.includes(turno)) {
-          turnosReservados.push(turno);
-          const index = turnosDisponibles.indexOf(turno);
-          if (index !== -1) {
-            turnosDisponibles.splice(index, 1);
+    const addButton = productDiv.querySelector('.sacar-turno-btn');
+    addButton.addEventListener('click', () => {
+      const userId = prompt('Ingrese su ID de usuario:');
+
+      if (userId) {
+        const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
+
+        if (usuario) {
+          if (!turnosReservados.includes(turno)) {
+            turnosReservados.push(turno);
+            const index = turnosDisponibles.indexOf(turno);
+            if (index !== -1) {
+              turnosDisponibles.splice(index, 1);
+            }
+            addButton.disabled = true;
+            addButton.textContent = 'Turno reservado';
+            console.log('Su turno ha sido programado');
+
+            // Mostrar por consola los turnos reservados
+            console.log('Turnos reservados:');
+            console.log(turnosReservados.map(turno => ({
+              fecha: turno.fecha,
+              hora: turno.hora,
+              especialidad: turno.especialidad,
+              profesional: turno.profesional
+            })));
+          } else {
+            console.log('Este turno fue reservado');
           }
-          addButton.disabled = true;
-          addButton.textContent = 'Turno reservado';
-          console.log('Su turno ha sido programado');
         } else {
-          console.log('Este turno fue reservado');
+          console.log('Usuario no encontrado');
         }
       } else {
-        console.log('Usuario no encontrado');
+        console.log('Tenés que registrarte previamente');
       }
-    } else {
-      console.log('Tenés que registrarte previamente');
-    }
-  });  
-});
+    });
+  });
+}
+
+// Generar tarjetas y lógica para la especialidad de ginecología
+generarTarjetasEspecialidad('ginecologia');
+
+// Generar tarjetas y lógica para la especialidad de obstetricia
+generarTarjetasEspecialidad('obstetricia');
+
+// Generar tarjetas y lógica para la especialidad de IVE/ILE
+generarTarjetasEspecialidad('ive-ile');
+
+
+
+
+
 
