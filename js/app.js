@@ -2,7 +2,7 @@ console.log("Estás conectada")
 //Función constructora de usuarios registrados
 class Usuario {
   constructor(nombre, apellido, genero, edad, email) {
-    this.id = apellido + nombre;
+    this.id = apellido.toLowerCase() + nombre.toLowerCase();
     this.nombre = nombre;
     this.apellido = apellido;
     this.genero = genero;
@@ -78,7 +78,7 @@ function registrarUsuario() {
   const usuario = new Usuario(nombre, apellido, genero, edad, email);
 
   usuarios.push(usuario);
-  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido + usuario.nombre}`);
+  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido.toLowerCase() + usuario.nombre.toLowerCase()}`);
 
   console.log(usuario);
 }
@@ -102,11 +102,10 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
   console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
 });
 
-
 //TARJETAS DE PROFESIONALES
 const productContainer = document.querySelector('#product_ginecologia');
 const turnosGinecologia = turnosDisponibles.filter(turno => turno.especialidad === "ginecologia");
-
+const turnosReservados = [];
 const quitarAcentos = (cadena) => {
   return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
@@ -130,16 +129,38 @@ turnosGinecologia.forEach(turno => {
         <p>Fecha: ${turno.fecha}</p>
         <p>Hora: ${turno.hora}</p>
       </div>
-      <button id="sacarTurnoBtn" class="sacar-turno-btn">Sacar Turno</button>
-      </label>
+      <button class="sacar-turno-btn">Sacar Turno</button>
     </div>
   `;
 
   productContainer.appendChild(productDiv);
 
   const addButton = productDiv.querySelector('.sacar-turno-btn');
-    addButton.addEventListener('click', () => {
-      //Agregar la logica para el carrito
-      console.log('Su turno ha sido programado');
-    });
+  addButton.addEventListener('click', () => {
+    const userId = prompt('Ingrese su ID de usuario:');
+  
+    if (userId) {
+      const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
+  
+      if (usuario) {
+        if (!turnosReservados.includes(turno)) {
+          turnosReservados.push(turno);
+          const index = turnosDisponibles.indexOf(turno);
+          if (index !== -1) {
+            turnosDisponibles.splice(index, 1);
+          }
+          addButton.disabled = true;
+          addButton.textContent = 'Turno reservado';
+          console.log('Su turno ha sido programado');
+        } else {
+          console.log('Este turno fue reservado');
+        }
+      } else {
+        console.log('Usuario no encontrado');
+      }
+    } else {
+      console.log('Tenés que registrarte previamente');
+    }
+  });  
 });
+
