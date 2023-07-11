@@ -1,4 +1,5 @@
-console.log("Estás conectada")
+console.log("Estás conectada");
+
 //Función constructora de usuarios registrados
 class Usuario {
   constructor(nombre, apellido, genero, edad, email) {
@@ -9,7 +10,8 @@ class Usuario {
     this.edad = edad;
     this.email = email;
   }
-};
+}
+
 //Función constructora de turnos disponibles
 class TurnoDisponible {
   constructor (fecha, hora, especialidad, profesional) {
@@ -18,29 +20,14 @@ class TurnoDisponible {
     this.especialidad = especialidad,
     this.profesional = profesional
   }
-};
+}
+
 //LISTA DE TURNOS DISPONIBLES
 const turnosDisponibles = [
   new TurnoDisponible("3 de Julio", "08:00", "obstetricia", "Dr. Sánchez"),
   new TurnoDisponible("4 de Julio", "09:30", "ginecologia", "Dra. Rodríguez"),
   new TurnoDisponible("5 de Julio", "10:30", "ive-ile", "Dra. Martínez"),
-  new TurnoDisponible("6 de Julio", "08:30", "obstetricia", "Dr. Guida"),
-  new TurnoDisponible("7 de Julio", "10:00", "ginecologia", "Dr. Fernández"),
-  new TurnoDisponible("8 de Julio", "09:30", "ive-ile", "Dra. Ramírez"),
-  new TurnoDisponible("9 de Julio", "10:30", "obstetricia", "Dra. Gómez"),
-  new TurnoDisponible("10 de Julio", "11:00", "ginecologia", "Dra. Rodríguez"),
-  new TurnoDisponible("11 de Julio", "08:30", "ive-ile", "Dr. Sánchez"),
-  new TurnoDisponible("12 de Julio", "10:30", "ginecologia", "Dr. Fernández"),
-  new TurnoDisponible("13 de Julio", "09:30", "ginecologia", "Dra. Martínez"),
-  new TurnoDisponible("14 de Julio", "08:30", "ive-ile", "Dra. González"),
-  new TurnoDisponible("15 de Julio", "10:00", "ginecologia", "Dra. Ramírez"),
-  new TurnoDisponible("16 de Julio", "08:30", "ive-ile", "Dra. Gómez"),
-  new TurnoDisponible("17 de Julio", "10:30", "ginecologia", "Dra. Rodríguez"),
-  new TurnoDisponible("18 de Julio", "09:30", "ive-ile", "Dr. Sánchez"),
-  new TurnoDisponible("19 de Julio", "11:00", "obstetricia", "Dr. Fernández"),
-  new TurnoDisponible("20 de Julio", "08:30", "ive-ile", "Dra. Martínez"),
-  new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dra. González"),
-  new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
+  // ...
 ];
 
 //LISTA DE USUARIOS REGISTRADOS
@@ -48,8 +35,7 @@ const usuarios = [
   new Usuario('Lucía', 'Moreno', 'Femenino', 30, 'lucia.moreno@example.com'),
   new Usuario('Sofía', 'Rossi', 'Femenino', 25, 'sofia.rossi@example.com'),
   new Usuario('Mateo', 'Bianchi', 'Masculino', 45, 'mateo.bianchi@example.com'),
-  new Usuario('Valentina', 'Ricci', 'Femenino', 28, 'valentina.ricci@example.com'),
-  new Usuario('Gabriel', 'Romano', 'Masculino', 35, 'gabriel.romano@example.com')
+  // ...
 ];
 
 function registrarUsuario() {
@@ -112,6 +98,7 @@ function generarTarjetasEspecialidad(especialidad) {
   const quitarAcentos = (cadena) => {
     return cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
+
   turnosEspecialidad.forEach(turno => {
     const productDiv = document.createElement('div');
     productDiv.classList.add('producto');
@@ -147,7 +134,7 @@ function generarTarjetasEspecialidad(especialidad) {
         if (usuario) {
           if (!turnosReservados.includes(turno)) {
             turnosReservados.push(turno);
-            localStorage.setItem("turnosReservados", JSON.stringify(turnosReservados));
+            let turnosStorage = localStorage.setItem("turnosStorage", JSON.stringify(turnosReservados));
             const index = turnosDisponibles.indexOf(turno);
             if (index !== -1) {
               turnosDisponibles.splice(index, 1);
@@ -186,8 +173,47 @@ generarTarjetasEspecialidad('obstetricia');
 // Generar tarjetas y lógica para la especialidad de IVE/ILE
 generarTarjetasEspecialidad('ive-ile');
 
+//FUNCIÓN PARA MOSTRAR LOS TURNOS DEL LOCALSTORAGE
+function mostrarTurnosReservados() {
+  const modalContent = document.getElementById('modal-content');
+  modalContent.innerHTML = '';
 
+  const turnosStorage = localStorage.getItem('turnosStorage');
+  if (turnosStorage) {
+    const turnosReservados = JSON.parse(turnosStorage);
+    if (turnosReservados.length > 0) {
+      const ul = document.createElement('ul');
+      turnosReservados.forEach(turno => {
+        const li = document.createElement('li');
+        li.textContent = `${turno.fecha} a las ${turno.hora} - ${turno.profesional} (${turno.especialidad})`;
+        ul.appendChild(li);
+      });
+      modalContent.appendChild(ul);
+    } else {
+      modalContent.textContent = 'No hay turnos reservados.';
+    }
+  } else {
+    modalContent.textContent = 'No hay turnos reservados.';
+  }
 
+  // Crear el botón "Cerrar" y agregarlo al contenido del modal
+  const closeModalBtn = document.createElement('button');
+  closeModalBtn.setAttribute('id', 'closeModalBtn');
+  closeModalBtn.textContent = 'Cerrar';
+  modalContent.appendChild(closeModalBtn);
 
+  closeModalBtn.addEventListener('click', cerrarModal);
+  // Mostrar el modal
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
+}
 
+// Función para cerrar el modal
+function cerrarModal() {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'none';
+}
 
+// Eventos para mostrar los turnos reservados y cerrar el modal
+document.getElementById('verTurnosBtn').addEventListener('click', mostrarTurnosReservados);
+document.getElementById('closeModalBtn').addEventListener('click', cerrarModal);
