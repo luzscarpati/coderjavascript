@@ -27,7 +27,23 @@ const turnosDisponibles = [
   new TurnoDisponible("3 de Julio", "08:00", "obstetricia", "Dr. Sánchez"),
   new TurnoDisponible("4 de Julio", "09:30", "ginecologia", "Dra. Rodríguez"),
   new TurnoDisponible("5 de Julio", "10:30", "ive-ile", "Dra. Martínez"),
-  // ...
+  new TurnoDisponible("6 de Julio", "08:30", "obstetricia", "Dr. Guida"),
+  new TurnoDisponible("7 de Julio", "10:00", "ginecologia", "Dr. Fernández"),
+  new TurnoDisponible("8 de Julio", "09:30", "ive-ile", "Dra. Ramírez"),
+  new TurnoDisponible("9 de Julio", "10:30", "obstetricia", "Dra. Gómez"),
+  new TurnoDisponible("10 de Julio", "11:00", "ginecologia", "Dra. Rodríguez"),
+  new TurnoDisponible("11 de Julio", "08:30", "ive-ile", "Dr. Sánchez"),
+  new TurnoDisponible("12 de Julio", "10:30", "ginecologia", "Dr. Fernández"),
+  new TurnoDisponible("13 de Julio", "09:30", "ginecologia", "Dra. Martínez"),
+  new TurnoDisponible("14 de Julio", "08:30", "ive-ile", "Dra. González"),
+  new TurnoDisponible("15 de Julio", "10:00", "ginecologia", "Dra. Ramírez"),
+  new TurnoDisponible("16 de Julio", "08:30", "ive-ile", "Dra. Gómez"),
+  new TurnoDisponible("17 de Julio", "10:30", "ginecologia", "Dra. Rodríguez"),
+  new TurnoDisponible("18 de Julio", "09:30", "ive-ile", "Dr. Sánchez"),
+  new TurnoDisponible("19 de Julio", "11:00", "obstetricia", "Dr. Fernández"),
+  new TurnoDisponible("20 de Julio", "08:30", "ive-ile", "Dra. Martínez"),
+  new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dra. González"),
+  new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
 ];
 
 //LISTA DE USUARIOS REGISTRADOS
@@ -35,9 +51,11 @@ const usuarios = [
   new Usuario('Lucía', 'Moreno', 'Femenino', 30, 'lucia.moreno@example.com'),
   new Usuario('Sofía', 'Rossi', 'Femenino', 25, 'sofia.rossi@example.com'),
   new Usuario('Mateo', 'Bianchi', 'Masculino', 45, 'mateo.bianchi@example.com'),
-  // ...
+  new Usuario('Valentina', 'Ricci', 'Femenino', 28, 'valentina.ricci@example.com'),
+  new Usuario('Gabriel', 'Romano', 'Otro', 35, 'gabriel.romano@example.com')
 ];
 
+//Función para registrar usuarios
 function registrarUsuario() {
 
   let nombre = document.getElementById("first-name").value;
@@ -164,13 +182,9 @@ function generarTarjetasEspecialidad(especialidad) {
   });
 }
 
-// Generar tarjetas y lógica para la especialidad de ginecología
+// Generar tarjetas 
 generarTarjetasEspecialidad('ginecologia');
-
-// Generar tarjetas y lógica para la especialidad de obstetricia
 generarTarjetasEspecialidad('obstetricia');
-
-// Generar tarjetas y lógica para la especialidad de IVE/ILE
 generarTarjetasEspecialidad('ive-ile');
 
 //FUNCIÓN PARA MOSTRAR LOS TURNOS DEL LOCALSTORAGE
