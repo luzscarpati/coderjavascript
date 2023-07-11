@@ -100,6 +100,7 @@ document.getElementById("form_registro").addEventListener("submit", function (ev
   }
   let promedioEdades = edadPromedioUsuarios();
   console.log(`La edad promedio de los usuarios es: ${promedioEdades}`);
+  localStorage.setItem("Edad promedio", promedioEdades);
 });
 
 //TARJETAS DE PROFESIONALES
@@ -146,6 +147,7 @@ function generarTarjetasEspecialidad(especialidad) {
         if (usuario) {
           if (!turnosReservados.includes(turno)) {
             turnosReservados.push(turno);
+            localStorage.setItem("turnosReservados", JSON.stringify(turnosReservados));
             const index = turnosDisponibles.indexOf(turno);
             if (index !== -1) {
               turnosDisponibles.splice(index, 1);
