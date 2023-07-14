@@ -1,3 +1,4 @@
+(async () => {
 console.log("Estás conectada");
 
 //Función constructora de usuarios registrados
@@ -55,6 +56,38 @@ const usuarios = [
   new Usuario('Gabriel', 'Romano', 'Otro', 35, 'gabriel.romano@example.com')
 ];
 
+// Incorporación de Sweet2
+const { value: userId } = await Swal.fire({
+  title: 'Ingresa tu Id',
+  input: 'text',
+  inputLabel: 'Tu id de registro',
+  inputPlaceholder: 'Ingresa tu Id',
+  allowOutsideClick: false,
+});
+
+if (userId) {
+  const usuario = usuarios.find(usuario => usuario.id === userId);
+
+  if (usuario) {
+    Swal.fire({
+      text: `Aquí están los turnos disponibles ${userId}`,
+      didClose: () => {
+        const especialidadesSection = document.getElementById('especialidades');
+        especialidadesSection.scrollIntoView({ behavior: 'smooth' });
+        sessionStorage.setItem('userId', userId);
+      }
+    });
+  } else {
+    Swal.fire({
+      text: 'Debes registrarte primero',
+      didClose: () => {
+        const registroSection = document.getElementById('registro');
+        registroSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+}
+
 //Función para registrar usuarios
 function registrarUsuario() {
 
@@ -66,15 +99,20 @@ function registrarUsuario() {
 
   // Validación de campos obligatorios y otros chequeos...
   if (!nombre || !apellido || !genero || !edad || !email) {
-    alert("Debes completar todos los campos");
+    Swal.fire('Debes completar todos los campos');
     return;
   } else if (isNaN(edad) || edad <= 0) {
-    alert("La edad ingresada no es válida.");
+    Swal.fire('La edad ingresada no es válida.');
     return;
   } else {
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      alert("El correo electrónico ingresado no es válido.");
+      Swal.fire('El correo electrónico ingresado no es válido.');
+      return;
+    }
+    const nombreRegex = /^[A-Za-z]+$/;
+    if (!nombreRegex.test(nombre)) {
+      Swal.fire('El nombre solo puede contener letras');
       return;
     }
   }
@@ -82,8 +120,8 @@ function registrarUsuario() {
   const usuario = new Usuario(nombre, apellido, genero, edad, email);
 
   usuarios.push(usuario);
-  alert(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido.toLowerCase() + usuario.nombre.toLowerCase()}`);
-
+  Swal.fire(`Registro exitoso. Tu ID de usuario es: ${usuario.apellido.toLowerCase() + usuario.nombre.toLowerCase()}`);
+  sessionStorage.setItem('userId', usuario.apellido.toLowerCase() + usuario.nombre.toLowerCase());
   console.log(usuario);
 }
 // Evento - Llamado a Registro de Usuarios 
@@ -143,43 +181,43 @@ function generarTarjetasEspecialidad(especialidad) {
     productContainer.appendChild(productDiv);
 
     const addButton = productDiv.querySelector('.sacar-turno-btn');
-    addButton.addEventListener('click', () => {
-      const userId = prompt('Ingrese su ID de usuario:');
+addButton.addEventListener('click', () => {
+  const userId = sessionStorage.getItem('userId');
 
-      if (userId) {
-        const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
+  if (userId) {
+    const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
 
-        if (usuario) {
-          if (!turnosReservados.includes(turno)) {
-            turnosReservados.push(turno);
-            let turnosStorage = localStorage.setItem("turnosStorage", JSON.stringify(turnosReservados));
-            const index = turnosDisponibles.indexOf(turno);
-            if (index !== -1) {
-              turnosDisponibles.splice(index, 1);
-            }
-            addButton.disabled = true;
-            addButton.textContent = 'Turno reservado';
-            console.log('Su turno ha sido programado');
-
-            // Mostrar por consola los turnos reservados
-            console.log('Turnos reservados:');
-            console.log(turnosReservados.map(turno => ({
-              fecha: turno.fecha,
-              hora: turno.hora,
-              especialidad: turno.especialidad,
-              profesional: turno.profesional
-            })));
-          } else {
-            console.log('Este turno fue reservado');
-          }
-        } else {
-          console.log('Usuario no encontrado');
+    if (usuario) {
+      if (!turnosReservados.includes(turno)) {
+        turnosReservados.push(turno);
+        let turnosStorage = localStorage.setItem("turnosStorage", JSON.stringify(turnosReservados));
+        const index = turnosDisponibles.indexOf(turno);
+        if (index !== -1) {
+          turnosDisponibles.splice(index, 1);
         }
-      } else {
-        console.log('Tenés que registrarte previamente');
+        addButton.disabled = true;
+        addButton.textContent = 'Turno reservado';
+        Swal.fire('Su turno ha sido programado');
+
+        // Mostrar por consola los turnos reservados
+        console.log('Turnos reservados:');
+        console.log(turnosReservados.map(turno => ({
+          fecha: turno.fecha,
+          hora: turno.hora,
+          especialidad: turno.especialidad,
+          profesional: turno.profesional
+        })));
+      }} 
+  } else {
+    Swal.fire({
+      text: 'Debes registrarte primero',
+      didClose: () => {
+        const registroSection = document.getElementById('registro');
+        registroSection.scrollIntoView({ behavior: 'smooth' });
       }
     });
-  });
+  }});
+});
 }
 
 // Generar tarjetas 
@@ -189,45 +227,26 @@ generarTarjetasEspecialidad('ive-ile');
 
 //FUNCIÓN PARA MOSTRAR LOS TURNOS DEL LOCALSTORAGE
 function mostrarTurnosReservados() {
-  const modalContent = document.getElementById('modal-content');
-  modalContent.innerHTML = '';
-
   const turnosStorage = localStorage.getItem('turnosStorage');
   if (turnosStorage) {
     const turnosReservados = JSON.parse(turnosStorage);
     if (turnosReservados.length > 0) {
-      const ul = document.createElement('ul');
-      turnosReservados.forEach(turno => {
-        const li = document.createElement('li');
-        li.textContent = `${turno.fecha} a las ${turno.hora} - ${turno.profesional} (${turno.especialidad})`;
-        ul.appendChild(li);
+      const turnosText = turnosReservados.map(turno => `${turno.fecha} a las ${turno.hora} - ${turno.profesional} (${turno.especialidad})`).join('\n');
+      Swal.fire({
+        title: 'Turnos Reservados',
+        text: turnosText,
+        confirmButtonText: 'Cerrar'
       });
-      modalContent.appendChild(ul);
     } else {
-      modalContent.textContent = 'No hay turnos reservados.';
+      Swal.fire('No hay turnos reservados.');
     }
   } else {
-    modalContent.textContent = 'No hay turnos reservados.';
+    Swal.fire('No hay turnos reservados.');
   }
-
-  // Crear el botón "Cerrar" y agregarlo al contenido del modal
-  const closeModalBtn = document.createElement('button');
-  closeModalBtn.setAttribute('id', 'closeModalBtn');
-  closeModalBtn.textContent = 'Cerrar';
-  modalContent.appendChild(closeModalBtn);
-
-  closeModalBtn.addEventListener('click', cerrarModal);
-  // Mostrar el modal
-  const modal = document.getElementById('modal');
-  modal.style.display = 'block';
 }
 
-// Función para cerrar el modal
-function cerrarModal() {
-  const modal = document.getElementById('modal');
-  modal.style.display = 'none';
-}
-
-// Eventos para mostrar los turnos reservados y cerrar el modal
+// Evento para mostrar los turnos reservados
 document.getElementById('verTurnosBtn').addEventListener('click', mostrarTurnosReservados);
-document.getElementById('closeModalBtn').addEventListener('click', cerrarModal);
+})();
+
+
