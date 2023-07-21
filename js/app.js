@@ -45,9 +45,6 @@ const turnosDisponibles = [
   new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dra. González"),
   new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
 ];
-debugger
-console.log(turnosDisponibles);
-
 //LISTA DE USUARIOS REGISTRADOS
 const usuarios = [
   new Usuario('Lucía', 'Moreno', 'Femenino', 30, 'lucia.moreno@example.com'),
@@ -57,16 +54,36 @@ const usuarios = [
   new Usuario('Gabriel', 'Romano', 'Otro', 35, 'gabriel.romano@example.com')
 ];
 
-// Incorporación de Sweet2
-async function obtenerUsuarioYMostrarTurnos() {
-  try {
-    const { value: userId } = await Swal.fire({
+function desplazarScrollAlRegistro() {
+  const registroSection = document.getElementById('titulo_registro');
+  registroSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function obtenerUsuario() {
+  return new Promise((resolve, reject) => {
+    Swal.fire({
       title: 'Ingresa tu Id',
       input: 'text',
       inputLabel: 'Tu id de registro',
       inputPlaceholder: 'Ingresa tu Id',
       allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        resolve(result.value);
+      } else {
+        desplazarScrollAlRegistro(); // Desplazamiento del scroll al rechazar la promesa
+        reject(new Error('Debes ingresar un ID o registrarte'));
+      }
+    }).catch(() => {
+      desplazarScrollAlRegistro(); // Desplazamiento del scroll al rechazar la promesa
+      reject(new Error('Debes ingresar un ID o registrarte'));
     });
+  });
+}
+
+async function obtenerUsuarioYMostrarTurnos() {
+  try {
+    const userId = await obtenerUsuario();
 
     if (userId) {
       const usuario = usuarios.find(usuario => usuario.id === userId);
@@ -81,27 +98,20 @@ async function obtenerUsuarioYMostrarTurnos() {
           }
         });
       } else {
-        await Swal.fire({
-          text: 'Debes registrarte primero',
-          didClose: () => {
-            const registroSection = document.getElementById('registro');
-            registroSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
+        throw new Error('Debes registrarte primero');
       }
     }
   } catch (error) {
-    console.error('Ocurrió un error:', error);
     await Swal.fire({
-      text: 'Ocurrió un error al obtener el userId',
+      text: error.message,
       icon: 'error',
     });
+    desplazarScrollAlRegistro();
   }
 }
 
 // Llamar a la función para obtener el userId y mostrar los turnos
 obtenerUsuarioYMostrarTurnos();
-
 
 //Función para registrar usuarios
 function registrarUsuario() {
