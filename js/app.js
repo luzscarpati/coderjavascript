@@ -1,4 +1,3 @@
-(async () => {
 console.log("Estás conectada");
 
 //Función constructora de usuarios registrados
@@ -46,6 +45,8 @@ const turnosDisponibles = [
   new TurnoDisponible("21 de Julio", "10:00", "obstetricia", "Dra. González"),
   new TurnoDisponible("22 de Julio", "09:30", "ginecologia", "Dra. Ramírez")
 ];
+debugger
+console.log(turnosDisponibles);
 
 //LISTA DE USUARIOS REGISTRADOS
 const usuarios = [
@@ -57,36 +58,50 @@ const usuarios = [
 ];
 
 // Incorporación de Sweet2
-const { value: userId } = await Swal.fire({
-  title: 'Ingresa tu Id',
-  input: 'text',
-  inputLabel: 'Tu id de registro',
-  inputPlaceholder: 'Ingresa tu Id',
-  allowOutsideClick: false,
-});
-
-if (userId) {
-  const usuario = usuarios.find(usuario => usuario.id === userId);
-
-  if (usuario) {
-    Swal.fire({
-      text: `Aquí están los turnos disponibles ${userId}`,
-      didClose: () => {
-        const especialidadesSection = document.getElementById('especialidades');
-        especialidadesSection.scrollIntoView({ behavior: 'smooth' });
-        sessionStorage.setItem('userId', userId);
-      }
+async function obtenerUsuarioYMostrarTurnos() {
+  try {
+    const { value: userId } = await Swal.fire({
+      title: 'Ingresa tu Id',
+      input: 'text',
+      inputLabel: 'Tu id de registro',
+      inputPlaceholder: 'Ingresa tu Id',
+      allowOutsideClick: false,
     });
-  } else {
-    Swal.fire({
-      text: 'Debes registrarte primero',
-      didClose: () => {
-        const registroSection = document.getElementById('registro');
-        registroSection.scrollIntoView({ behavior: 'smooth' });
+
+    if (userId) {
+      const usuario = usuarios.find(usuario => usuario.id === userId);
+
+      if (usuario) {
+        await Swal.fire({
+          text: `Aquí están los turnos disponibles ${userId}`,
+          didClose: () => {
+            const especialidadesSection = document.getElementById('especialidades');
+            especialidadesSection.scrollIntoView({ behavior: 'smooth' });
+            sessionStorage.setItem('userId', userId);
+          }
+        });
+      } else {
+        await Swal.fire({
+          text: 'Debes registrarte primero',
+          didClose: () => {
+            const registroSection = document.getElementById('registro');
+            registroSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       }
+    }
+  } catch (error) {
+    console.error('Ocurrió un error:', error);
+    await Swal.fire({
+      text: 'Ocurrió un error al obtener el userId',
+      icon: 'error',
     });
   }
 }
+
+// Llamar a la función para obtener el userId y mostrar los turnos
+obtenerUsuarioYMostrarTurnos();
+
 
 //Función para registrar usuarios
 function registrarUsuario() {
@@ -247,6 +262,130 @@ function mostrarTurnosReservados() {
 
 // Evento para mostrar los turnos reservados
 document.getElementById('verTurnosBtn').addEventListener('click', mostrarTurnosReservados);
-})();
+
+/* -------- ARRAY DE PROFESIONALES PARA INCORPORAR AL JSON
+[
+  {
+    "fecha": "3 de Julio",
+    "hora": "08:00",
+    "especialidad": "obstetricia",
+    "profesional": "Dr. Sánchez"
+  },
+  {
+    "fecha": "4 de Julio",
+    "hora": "09:30",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Rodríguez"
+  },
+  {
+    "fecha": "5 de Julio",
+    "hora": "10:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dra. Martínez"
+  },
+  {
+    "fecha": "6 de Julio",
+    "hora": "08:30",
+    "especialidad": "obstetricia",
+    "profesional": "Dr. Guida"
+  },
+  {
+    "fecha": "7 de Julio",
+    "hora": "10:00",
+    "especialidad": "ginecologia",
+    "profesional": "Dr. Fernández"
+  },
+  {
+    "fecha": "8 de Julio",
+    "hora": "09:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dra. Ramírez"
+  },
+  {
+    "fecha": "9 de Julio",
+    "hora": "10:30",
+    "especialidad": "obstetricia",
+    "profesional": "Dra. Gómez"
+  },
+  {
+    "fecha": "10 de Julio",
+    "hora": "11:00",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Rodríguez"
+  },
+  {
+    "fecha": "11 de Julio",
+    "hora": "08:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dr. Sánchez"
+  },
+  {
+    "fecha": "12 de Julio",
+    "hora": "10:30",
+    "especialidad": "ginecologia",
+    "profesional": "Dr. Fernández"
+  },
+  {
+    "fecha": "13 de Julio",
+    "hora": "09:30",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Martínez"
+  },
+  {
+    "fecha": "14 de Julio",
+    "hora": "08:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dra. González"
+  },
+  {
+    "fecha": "15 de Julio",
+    "hora": "10:00",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Ramírez"
+  },
+  {
+    "fecha": "16 de Julio",
+    "hora": "08:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dra. Gómez"
+  },
+  {
+    "fecha": "17 de Julio",
+    "hora": "10:30",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Rodríguez"
+  },
+  {
+    "fecha": "18 de Julio",
+    "hora": "09:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dr. Sánchez"
+  },
+  {
+    "fecha": "19 de Julio",
+    "hora": "11:00",
+    "especialidad": "obstetricia",
+    "profesional": "Dr. Fernández"
+  },
+  {
+    "fecha": "20 de Julio",
+    "hora": "08:30",
+    "especialidad": "ive-ile",
+    "profesional": "Dra. Martínez"
+  },
+  {
+    "fecha": "21 de Julio",
+    "hora": "10:00",
+    "especialidad": "obstetricia",
+    "profesional": "Dra. González"
+  },
+  {
+    "fecha": "22 de Julio",
+    "hora": "09:30",
+    "especialidad": "ginecologia",
+    "profesional": "Dra. Ramírez"
+  }
+]
 
 
+*/

@@ -1,0 +1,122 @@
+[
+    {
+      "fecha": "3 de Julio",
+      "hora": "08:00",
+      "especialidad": "obstetricia",
+      "profesional": "Dr. Sánchez"
+    },
+    {
+      "fecha": "4 de Julio",
+      "hora": "09:30",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Rodríguez"
+    },
+    {
+      "fecha": "5 de Julio",
+      "hora": "10:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dra. Martínez"
+    },
+    {
+      "fecha": "6 de Julio",
+      "hora": "08:30",
+      "especialidad": "obstetricia",
+      "profesional": "Dr. Guida"
+    },
+    {
+      "fecha": "7 de Julio",
+      "hora": "10:00",
+      "especialidad": "ginecologia",
+      "profesional": "Dr. Fernández"
+    },
+    {
+      "fecha": "8 de Julio",
+      "hora": "09:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dra. Ramírez"
+    },
+    {
+      "fecha": "9 de Julio",
+      "hora": "10:30",
+      "especialidad": "obstetricia",
+      "profesional": "Dra. Gómez"
+    },
+    {
+      "fecha": "10 de Julio",
+      "hora": "11:00",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Rodríguez"
+    },
+    {
+      "fecha": "11 de Julio",
+      "hora": "08:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dr. Sánchez"
+    },
+    {
+      "fecha": "12 de Julio",
+      "hora": "10:30",
+      "especialidad": "ginecologia",
+      "profesional": "Dr. Fernández"
+    },
+    {
+      "fecha": "13 de Julio",
+      "hora": "09:30",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Martínez"
+    },
+    {
+      "fecha": "14 de Julio",
+      "hora": "08:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dra. González"
+    },
+    {
+      "fecha": "15 de Julio",
+      "hora": "10:00",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Ramírez"
+    },
+    {
+      "fecha": "16 de Julio",
+      "hora": "08:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dra. Gómez"
+    },
+    {
+      "fecha": "17 de Julio",
+      "hora": "10:30",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Rodríguez"
+    },
+    {
+      "fecha": "18 de Julio",
+      "hora": "09:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dr. Sánchez"
+    },
+    {
+      "fecha": "19 de Julio",
+      "hora": "11:00",
+      "especialidad": "obstetricia",
+      "profesional": "Dr. Fernández"
+    },
+    {
+      "fecha": "20 de Julio",
+      "hora": "08:30",
+      "especialidad": "ive-ile",
+      "profesional": "Dra. Martínez"
+    },
+    {
+      "fecha": "21 de Julio",
+      "hora": "10:00",
+      "especialidad": "obstetricia",
+      "profesional": "Dra. González"
+    },
+    {
+      "fecha": "22 de Julio",
+      "hora": "09:30",
+      "especialidad": "ginecologia",
+      "profesional": "Dra. Ramírez"
+    }
+  ]
