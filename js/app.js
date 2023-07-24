@@ -213,6 +213,7 @@ async function generarTarjetasEspecialidad(especialidad, data) {
           }
           addButton.disabled = true;
           addButton.textContent = 'Turno reservado';
+          addButton.style.fontSize = '12px';
           Swal.fire('Su turno ha sido programado');
           console.log('Turnos reservados:');
           console.log(turnosReservados.map(turno => ({
@@ -234,10 +235,10 @@ function mostrarTurnosReservados() {
   if (turnosStorage) {
     const turnosReservados = JSON.parse(turnosStorage);
     if (turnosReservados.length > 0) {
-      const turnosText = turnosReservados.map(turno => `${turno.fecha} a las ${turno.hora} - ${turno.profesional} (${turno.especialidad})`).join('\n');
+      const turnosText = turnosReservados.map(turno => `${turno.fecha} a las ${turno.hora} - ${turno.profesional} (${turno.especialidad})`).join('<br>');
       Swal.fire({
         title: 'Turnos Reservados',
-        text: turnosText,
+        html: `<ul style="text-align: left;">${turnosText}</ul>`,
         confirmButtonText: 'Cerrar'
       });
     } else {
