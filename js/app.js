@@ -147,7 +147,7 @@ const turnosReservados = [];
 
 // Función para cargar los datos desde el archivo data.json
 async function cargarDatos() {
-  const response = await fetch('../json/data.json');
+  const response = await fetch('./json/data.json');
   const data = await response.json();
   generarTarjetasEspecialidad('ginecologia', data);
   generarTarjetasEspecialidad('obstetricia', data);
@@ -198,7 +198,7 @@ async function generarTarjetasEspecialidad(especialidad, data) {
             desplazarScroll('titulo_registro');
           }
         });
-        return; // Sale de la función si no hay un userId
+        return;
       }
 
       const usuario = usuarios.find(usuario => usuario.id.toLowerCase() === userId.toLowerCase());
@@ -226,10 +226,7 @@ async function generarTarjetasEspecialidad(especialidad, data) {
     });
   });
 }
-
-// Llamar a cargarDatos para obtener los datos antes de generar las tarjetas
 cargarDatos();
-
 
 //FUNCIÓN PARA MOSTRAR LOS TURNOS DEL LOCALSTORAGE
 function mostrarTurnosReservados() {
